@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Main Menu, Landscape-Portrait.unity
+    guid: e7ede611ad11a2a488b8bb83fc9d1dc7
   m_configObjects: {}

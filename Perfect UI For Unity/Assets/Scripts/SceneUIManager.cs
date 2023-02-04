@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneUIManager : MonoBehaviour
@@ -24,10 +25,26 @@ public class SceneUIManager : MonoBehaviour
         AssignButtons();
     }
 
-    public void ChangeEnableState(GameObject targetGameObject)
+    public void ChangeGameObjectActiveState(GameObject targetGameObject)
     {
         targetGameObject.SetActive(!targetGameObject.activeSelf);
+    }
 
+    public void ChangeButtonEnableState(Button targetButton)
+    {
+        targetButton.interactable = !targetButton.interactable;
+    }
+
+    public void ChangeScreenOrientation()
+    {
+        if (Screen.orientation == ScreenOrientation.Portrait)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
+        else
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
     }
 
     private void AssignButtons()
