@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -8,7 +9,6 @@ using UnityEngine.UI;
 
 public class SceneUIManager : MonoBehaviour
 {
-
     [Serializable]
     public class ButtonCombo
     {
@@ -19,11 +19,41 @@ public class SceneUIManager : MonoBehaviour
 
     [SerializeField]
     private ButtonCombo[] _buttonComboArray;
+    [SerializeField]
+    private UnityEvent screenRotationEvent;
+
+    private DeviceOrientation pastOrientation = DeviceOrientation.Portrait;
+
 
     private void Awake()
     {
         AssignButtons();
     }
+
+    private void Update()
+    {
+        if (pastOrientation == Input.deviceOrientation)
+        {
+            return;
+        }
+
+        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
+        else if (Input.deviceOrientation == DeviceOrientation.Portrait)
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
+        else
+        {
+            return;
+        }
+
+        screenRotationEvent.Invoke();
+        pastOrientation = Input.deviceOrientation;
+    }
+
 
     public void ChangeGameObjectActiveState(GameObject targetGameObject)
     {
@@ -41,10 +71,15 @@ public class SceneUIManager : MonoBehaviour
         {
             Screen.orientation = ScreenOrientation.LandscapeLeft;
         }
-        else
+        else if (Screen.orientation == ScreenOrientation.LandscapeLeft)
         {
             Screen.orientation = ScreenOrientation.Portrait;
         }
+        else
+        {
+            return;
+        }
+        screenRotationEvent.Invoke();
     }
 
     private void AssignButtons()
@@ -57,6 +92,4 @@ public class SceneUIManager : MonoBehaviour
             }
         }
     }
-
-   
 }
