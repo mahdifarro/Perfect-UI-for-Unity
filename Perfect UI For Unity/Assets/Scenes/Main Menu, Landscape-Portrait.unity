@@ -372,6 +372,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263c34561841882438bfa3a629af35de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useButtonToRotate: 0
+  useScreenToScale: 1
   _buttonComboArray:
   - ButtonName: Change Main Menu State
     assignedButtonsList:

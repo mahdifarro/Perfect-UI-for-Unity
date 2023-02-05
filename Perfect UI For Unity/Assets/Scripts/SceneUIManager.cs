@@ -9,6 +9,10 @@ using UnityEngine.UI;
 
 public class SceneUIManager : MonoBehaviour
 {
+
+    public bool useButtonToRotate;
+    public bool useScreenToRotate;
+
     [Serializable]
     public class ButtonCombo
     {
@@ -32,6 +36,8 @@ public class SceneUIManager : MonoBehaviour
 
     private void Update()
     {
+        if (!useScreenToRotate) return;
+
         if (pastOrientation == Input.deviceOrientation)
         {
             return;
@@ -67,6 +73,8 @@ public class SceneUIManager : MonoBehaviour
 
     public void ChangeScreenOrientation()
     {
+        if (!useButtonToRotate) return;
+
         if (Screen.orientation == ScreenOrientation.Portrait)
         {
             Screen.orientation = ScreenOrientation.LandscapeLeft;
@@ -79,7 +87,9 @@ public class SceneUIManager : MonoBehaviour
         {
             return;
         }
+
         screenRotationEvent.Invoke();
+        pastOrientation = (DeviceOrientation)Screen.orientation;
     }
 
     private void AssignButtons()
