@@ -1,12 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class SceneUIManager : MonoBehaviour
 {
+
+    public bool useButtonToRotate;
+    public bool useScreenToRotate;
 
     [Serializable]
     public class ButtonCombo
@@ -18,16 +23,73 @@ public class SceneUIManager : MonoBehaviour
 
     [SerializeField]
     private ButtonCombo[] _buttonComboArray;
+    [SerializeField]
+    private UnityEvent screenRotationEvent;
+
+    private DeviceOrientation pastOrientation = DeviceOrientation.Portrait;
+
 
     private void Awake()
     {
         AssignButtons();
     }
 
-    public void ChangeEnableState(GameObject targetGameObject)
+    private void Update()
+    {
+        if (!useScreenToRotate) return;
+
+        if (pastOrientation == Input.deviceOrientation)
+        {
+            return;
+        }
+
+        if (Input.deviceOrientation == DeviceOrientation.LandscapeLeft)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
+        else if (Input.deviceOrientation == DeviceOrientation.Portrait)
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
+        else
+        {
+            return;
+        }
+
+        screenRotationEvent.Invoke();
+        pastOrientation = Input.deviceOrientation;
+    }
+
+
+    public void ChangeGameObjectActiveState(GameObject targetGameObject)
     {
         targetGameObject.SetActive(!targetGameObject.activeSelf);
+    }
 
+    public void ChangeButtonEnableState(Button targetButton)
+    {
+        targetButton.interactable = !targetButton.interactable;
+    }
+
+    public void ChangeScreenOrientation()
+    {
+        if (!useButtonToRotate) return;
+
+        if (Screen.orientation == ScreenOrientation.Portrait)
+        {
+            Screen.orientation = ScreenOrientation.LandscapeLeft;
+        }
+        else if (Screen.orientation == ScreenOrientation.LandscapeLeft)
+        {
+            Screen.orientation = ScreenOrientation.Portrait;
+        }
+        else
+        {
+            return;
+        }
+
+        screenRotationEvent.Invoke();
+        pastOrientation = (DeviceOrientation)Screen.orientation;
     }
 
     private void AssignButtons()
@@ -40,6 +102,4 @@ public class SceneUIManager : MonoBehaviour
             }
         }
     }
-
-   
 }
