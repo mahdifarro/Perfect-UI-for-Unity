@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Main Menu, Landscape-Portrait.unity
     guid: e7ede611ad11a2a488b8bb83fc9d1dc7
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.adaptiveperformance.loader_settings: {fileID: 11400000, guid: d003798c773d3c84181d910f2a58ce29,
+      type: 2}
+    com.unity.adaptiveperformance.simulator.provider_settings: {fileID: 11400000,
+      guid: 989210b02c0c4a442af6ce18af6197d9, type: 2}
