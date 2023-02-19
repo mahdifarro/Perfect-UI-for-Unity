@@ -1,4 +1,4 @@
-# Compatible Mobile UI for Unity (with rotation)
+# Compatible Mobile UI for Unity (with rotation support)
 
 ## Table of contents
 * [General info](#general-info)
